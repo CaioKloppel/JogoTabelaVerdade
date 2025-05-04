@@ -5,9 +5,7 @@ import java.util.Random;
 
 public class Funcoes {
     private static final Random random = new Random();
-    /**
-     * Retorna o input do usuário no tipo int. Evita erros de input.
-     */
+
     public static int getInt(String pergunta)
     {
         int numeroInt = 0;

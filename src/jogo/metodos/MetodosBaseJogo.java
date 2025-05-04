@@ -71,64 +71,57 @@ abstract class MetodosBaseJogo {
         }
     }
 
-    void result(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaCondicoes, int index, String v_f){
+    void setResultOnList(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaCondicoes, int index, String v_f){
         listaVariaveis.get(index).setResult(v_f);
         listaVariaveis.remove(index + 1);
         listaCondicoes.remove(index);
     }
 
     String resposta(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaCondicoes) {
-        while (listaVariaveis.size() != 1){
-            if (listaCondicoes.contains("AND")){
-                int index = listaCondicoes.indexOf("AND");
-                if (listaVariaveis.get(index).getResult().equals("V") && listaVariaveis.get(index + 1).getResult().equals("V")){
-                    result(listaVariaveis, listaCondicoes,index,"V");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"F");
+        while (listaVariaveis.size() > 1) {
+            int index;
+            String condicao;
+
+            int idxAnd  = listaCondicoes.indexOf("AND");
+            int idxNand = listaCondicoes.indexOf("↑");
+            if (idxAnd != -1 || idxNand != -1) {
+                if (idxNand != -1 && (idxAnd == -1 || idxNand < idxAnd)) {
+                    index = idxNand;
+                    condicao    = "↑";
+                } else {
+                    index = idxAnd;
+                    condicao    = "AND";
                 }
-            } else if (listaCondicoes.contains("OR")){
-                int index = listaCondicoes.indexOf("OR");
-                if (listaVariaveis.get(index).getResult().equals("V") || listaVariaveis.get(index + 1).getResult().equals("V")){
-                    result(listaVariaveis, listaCondicoes,index,"V");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"F");
-                }
-            } else if (listaCondicoes.contains("->")){
-                int index = listaCondicoes.indexOf("->");
-                if (listaVariaveis.get(index).getResult().equals("F") || listaVariaveis.get(index + 1).getResult().equals("V")){
-                    result(listaVariaveis, listaCondicoes,index,"V");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"F");
-                }
-            } else if (listaCondicoes.contains("<->")){
-                int index = listaCondicoes.indexOf("<->");
-                if (listaVariaveis.get(index).getResult().equals(listaVariaveis.get(index + 1).getResult())){
-                    result(listaVariaveis, listaCondicoes,index,"V");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"F");
-                }
-            } else if (listaCondicoes.contains("↑")){
-                int index = listaCondicoes.indexOf("↑");
-                if (listaVariaveis.get(index).getResult().equals("V") && listaVariaveis.get(index + 1).getResult().equals("V")){
-                    result(listaVariaveis, listaCondicoes,index,"F");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"V");
-                }
-            } else if (listaCondicoes.contains("↓")) {
-                int index = listaCondicoes.indexOf("↓");
-                if (listaVariaveis.get(index).getResult().equals("V") || listaVariaveis.get(index + 1).getResult().equals("V")){
-                    result(listaVariaveis, listaCondicoes,index,"F");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"V");
-                }
-            } else if (listaCondicoes.contains("⊕")){
-                int index = listaCondicoes.indexOf("⊕");
-                if (listaVariaveis.get(index).getResult().equals(listaVariaveis.get(index + 1).getResult())){
-                    result(listaVariaveis, listaCondicoes,index,"F");
-                } else{
-                    result(listaVariaveis, listaCondicoes,index,"V");
+            } else {
+                int idxOr  = listaCondicoes.indexOf("OR");
+                int idxNor = listaCondicoes.indexOf("↓");
+                if (idxOr != -1 || idxNor != -1) {
+                    if (idxNor != -1 && (idxOr == -1 || idxNor < idxOr)) {
+                        index = idxNor;
+                        condicao    = "↓";
+                    } else {
+                        index = idxOr;
+                        condicao    = "OR";
+                    }
+                } else if (listaCondicoes.contains("->")) {
+                    index = listaCondicoes.indexOf("->");
+                    condicao    = "->";
+                } else {
+                    int idxBic = listaCondicoes.indexOf("<->");
+                    int idxXor = listaCondicoes.indexOf("⊕");
+                    if (idxXor != -1 && (idxBic == -1 || idxXor < idxBic)) {
+                        index = idxXor;
+                        condicao    = "⊕";
+                    } else {
+                        index = idxBic;
+                        condicao    = "<->";
+                    }
                 }
             }
+
+            String out = getResult(listaVariaveis, index, condicao);
+
+            setResultOnList(listaVariaveis, listaCondicoes, index, out);
         }
         return listaVariaveis.getFirst().getResult();
     }
@@ -141,5 +134,19 @@ abstract class MetodosBaseJogo {
             }
         }
         return acertos;
+    }
+
+    private String getResult(ArrayList<Variavel> listaVariaveis, int index, String condicao) {
+        String L = listaVariaveis.get(index).getResult();
+        String R = listaVariaveis.get(index + 1).getResult();
+        return switch (condicao) {
+            case "AND" -> (L.equals("V") && R.equals("V")) ? "V" : "F";
+            case "↑" -> (L.equals("V") && R.equals("V")) ? "F" : "V";
+            case "OR" -> (L.equals("V") || R.equals("V")) ? "V" : "F";
+            case "↓" -> (L.equals("V") || R.equals("V")) ? "F" : "V";
+            case "->" -> (L.equals("F") || R.equals("V")) ? "V" : "F";
+            case "<->" -> (L.equals(R)) ? "V" : "F";
+            default -> (L.equals(R)) ? "F" : "V";
+        };
     }
 }
