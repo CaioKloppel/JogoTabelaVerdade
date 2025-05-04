@@ -8,25 +8,23 @@ import java.util.ArrayList;
 
 class MetodosPrincipaisJogo {
 
-    MetodosBaseJogo metodosBase = new MetodosBaseJogo();
-
-    public int jogo(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaConectivos, ArrayList<String> respostasUsuario, ArrayList<String> respostasCorretas, int numVariaveis, int numRodadas, int nivel){
+    static public int jogo(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaConectivos, ArrayList<String> respostasUsuario, ArrayList<String> respostasCorretas, int numVariaveis, int numRodadas, int nivel){
         for (int i = 0; i < numRodadas; i++){
-            metodosBase.setVariaveis(listaVariaveis, numVariaveis);
-            metodosBase.setConectivos(listaConectivos, numVariaveis, nivel);
-            metodosBase.printEnunciado(listaVariaveis, listaConectivos, respostasUsuario, numVariaveis, i);
+            MetodosBaseJogo.setVariaveis(listaVariaveis, numVariaveis);
+            MetodosBaseJogo.setConectivos(listaConectivos, numVariaveis, nivel);
+            MetodosBaseJogo.printEnunciado(listaVariaveis, listaConectivos, respostasUsuario, numVariaveis, i);
 
-            metodosBase.inverter(listaVariaveis);
-            respostasCorretas.add(metodosBase.resposta(listaVariaveis, listaConectivos));
+            MetodosBaseJogo.inverter(listaVariaveis);
+            respostasCorretas.add(MetodosBaseJogo.resposta(listaVariaveis, listaConectivos));
 
             listaVariaveis.clear();
             listaConectivos.clear();
         }
 
-        return metodosBase.acertos(respostasUsuario, respostasCorretas);
+        return MetodosBaseJogo.acertos(respostasUsuario, respostasCorretas);
     }
 
-    public int getNumVariaveis(int nivel){
+    static public int getNumVariaveis(int nivel){
         int numVariaveis = 0;
         while (numVariaveis < 1) {
             numVariaveis = Funcoes.getInt("Com quantas variáveis você gostaria de jogar no nível " + nivel + ": ");
@@ -37,11 +35,11 @@ class MetodosPrincipaisJogo {
         return numVariaveis;
     }
 
-    public void printResultados(ArrayList<String> respostasUsuario, ArrayList<String> respostasCorretas, int acertos){
+    static public void printResultados(ArrayList<String> respostasUsuario, ArrayList<String> respostasCorretas, int acertos){
         System.out.printf("Você teve %d acerto(s)!!\nSuas respostas: %s\nRespostas corretas: %s\n", acertos, String.join(" | ", respostasUsuario), String.join(" | ", respostasCorretas));
     }
 
-    public void check(int acertos, int numRodadas){
+    static public void check(int acertos, int numRodadas){
         if (acertos < numRodadas / 2.0){
             System.out.println("Você não atingiu o mínimo de 50% e não passou para o próximo nível.");
             Input.getInstance().closeScan();

@@ -7,7 +7,6 @@ import util.Input;
 import java.util.ArrayList;
 
 public class JogoTabelaVerdade {
-    private final MetodosPrincipaisJogo metodosJogo = new MetodosPrincipaisJogo();
     private ArrayList<Variavel> listaVariaveis;
     private ArrayList<String> listaConectivos, respostasUsuario, respostasCorretas;
     private int numVariaveis, numRodadas, acertos, nivel;
@@ -20,7 +19,7 @@ public class JogoTabelaVerdade {
             respostasUsuario = new ArrayList<>();
             respostasCorretas = new ArrayList<>();
         }
-        numVariaveis = metodosJogo.getNumVariaveis(nivel);
+        numVariaveis = MetodosPrincipaisJogo.getNumVariaveis(nivel);
 
         String pergunta = "Quantas rodadas você gostaria de jogar no nível " + nivel + ": ";
 
@@ -28,9 +27,9 @@ public class JogoTabelaVerdade {
     }
 
     public void startGame(){
-        acertos = metodosJogo.jogo(listaVariaveis, listaConectivos, respostasUsuario, respostasCorretas, numVariaveis, numRodadas, nivel);
+        acertos = MetodosPrincipaisJogo.jogo(listaVariaveis, listaConectivos, respostasUsuario, respostasCorretas, numVariaveis, numRodadas, nivel);
 
-        metodosJogo.printResultados(respostasUsuario, respostasCorretas, acertos);
+        MetodosPrincipaisJogo.printResultados(respostasUsuario, respostasCorretas, acertos);
 
         if (nivel == 2){
             Input.getInstance().closeScan();
@@ -38,7 +37,7 @@ public class JogoTabelaVerdade {
     }
 
     public void checkNivel2(){
-        metodosJogo.check(acertos, numRodadas);
+        MetodosPrincipaisJogo.check(acertos, numRodadas);
 
         respostasUsuario.clear();
         respostasCorretas.clear();

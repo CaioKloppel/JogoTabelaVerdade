@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 class MetodosBaseJogo {
 
-    String getResposta(){
+    static String getResposta(){
         String resposta = Input.getInstance().scanNextLine().toUpperCase();
         while (!(resposta.equals("V") || resposta.equals("F"))){
             System.out.print("Aceita somente respostas 'V' ou 'F': ");
@@ -17,7 +17,7 @@ class MetodosBaseJogo {
         return resposta;
     }
 
-    void setVariaveis(ArrayList<Variavel> listaVariaveis, int numVariaveis){
+    static void setVariaveis(ArrayList<Variavel> listaVariaveis, int numVariaveis){
         for (int j = 0; j < numVariaveis; j++){
             char nome_variavel = (char) ('A' + j);
             Variavel variavel = new Variavel(nome_variavel);
@@ -25,7 +25,7 @@ class MetodosBaseJogo {
         }
     }
 
-    void setConectivos(ArrayList<String> listaConectivos, int numVariaveis, int nivel){
+    static void setConectivos(ArrayList<String> listaConectivos, int numVariaveis, int nivel){
         if (nivel == 1){
             for (int x = 0; x < numVariaveis - 1; x++) {
                 Conectivo conectivo = new Conectivo(nivel);
@@ -39,7 +39,7 @@ class MetodosBaseJogo {
         }
     }
 
-    void printEnunciado(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaConectivos, ArrayList<String> respostasUsuario, int numVariaveis, int rodada){
+    static void printEnunciado(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaConectivos, ArrayList<String> respostasUsuario, int numVariaveis, int rodada){
         System.out.printf("Nivel 1; Rodada %d: ", rodada + 1);
         for (int i = 0; i < numVariaveis; i++){
             System.out.printf("%c = %s | ", listaVariaveis.get(i).getNome(), listaVariaveis.get(i).getResult());
@@ -56,7 +56,7 @@ class MetodosBaseJogo {
         System.out.println();
     }
 
-    void inverter(ArrayList<Variavel> listaVariaveis){
+    static void inverter(ArrayList<Variavel> listaVariaveis){
         for(Variavel variavel : listaVariaveis){
             if (variavel.getCondicao().equals("~")){
                 if (variavel.getResult().equals("V")){
@@ -68,13 +68,13 @@ class MetodosBaseJogo {
         }
     }
 
-    void setResultOnList(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaconectivos, int index, String v_f){
+    static void setResultOnList(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaconectivos, int index, String v_f){
         listaVariaveis.get(index).setResult(v_f);
         listaVariaveis.remove(index + 1);
         listaconectivos.remove(index);
     }
 
-    String resposta(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaconectivos) {
+    static String resposta(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaconectivos) {
         while (listaVariaveis.size() > 1) {
             int index;
             String conectivo;
@@ -123,7 +123,7 @@ class MetodosBaseJogo {
         return listaVariaveis.getFirst().getResult();
     }
 
-    int acertos(ArrayList<String> respostasUsuario, ArrayList<String> respostasCertas){
+    static int acertos(ArrayList<String> respostasUsuario, ArrayList<String> respostasCertas){
         int acertos = 0;
         for (int i = 0; i < respostasCertas.size(); i++){
             if (respostasCertas.get(i).equals(respostasUsuario.get(i))){
@@ -133,7 +133,7 @@ class MetodosBaseJogo {
         return acertos;
     }
 
-    private String getResult(ArrayList<Variavel> listaVariaveis, int index, String conectivo) {
+    static private String getResult(ArrayList<Variavel> listaVariaveis, int index, String conectivo) {
         String L = listaVariaveis.get(index).getResult();
         String R = listaVariaveis.get(index + 1).getResult();
         return switch (conectivo) {
