@@ -23,7 +23,7 @@ public class JogoTabelaVerdade {
         }
         numVariaveis = metodosJogo.getNumVariaveis(nivel);
 
-        pergunta = "Quantas rodadas você gostaria de jogar no primeiro nível " + nivel + ": ";
+        pergunta = "Quantas rodadas você gostaria de jogar no nível " + nivel + ": ";
 
         numRodadas = Funcoes.getInt(pergunta);
     }
