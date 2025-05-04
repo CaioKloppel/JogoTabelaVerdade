@@ -10,11 +10,11 @@ public class Conectivo extends Tabela {
 
     public void setConectivoNivel1(){
         int indice = random.nextInt(getConectivos().length);
-        conectivo = (getConectivos()[indice]);
+        conectivo = getConectivos()[indice];
     }
 
     public void setConectivoNivel2(){
         int indice = random.nextInt(getConectivosFase2().length);
-        conectivo = (getConectivosFase2()[indice]);
+        conectivo = getConectivosFase2()[indice];
     }
 }
