@@ -3,7 +3,7 @@ package tabelaVerdade;
 import java.util.Random;
 
 public class Conectivo extends Tabela {
-    Random random = new Random();
+    private final Random random = new Random();
     private String conectivo;
 
     public String getConectivo() {return conectivo;}

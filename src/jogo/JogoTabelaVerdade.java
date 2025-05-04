@@ -8,10 +8,9 @@ import java.util.ArrayList;
 
 public class JogoTabelaVerdade {
     private final MetodosPrincipaisJogo metodosJogo = new MetodosPrincipaisJogo();
-    ArrayList<Variavel> listaVariaveis;
-    ArrayList<String> listaConectivos, respostasUsuario, respostasCorretas;
-    int numVariaveis, numRodadas, acertos, nivel;
-    String pergunta;
+    private ArrayList<Variavel> listaVariaveis;
+    private ArrayList<String> listaConectivos, respostasUsuario, respostasCorretas;
+    private int numVariaveis, numRodadas, acertos, nivel;
 
     public void setGame(int nivel){
         this.nivel = nivel;
@@ -23,7 +22,7 @@ public class JogoTabelaVerdade {
         }
         numVariaveis = metodosJogo.getNumVariaveis(nivel);
 
-        pergunta = "Quantas rodadas você gostaria de jogar no nível " + nivel + ": ";
+        String pergunta = "Quantas rodadas você gostaria de jogar no nível " + nivel + ": ";
 
         numRodadas = Funcoes.getInt(pergunta);
     }
