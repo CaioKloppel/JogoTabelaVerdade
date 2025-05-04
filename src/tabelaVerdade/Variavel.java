@@ -17,19 +17,22 @@ public class Variavel extends Tabela {
     }
 
     public String getResult() {
+        if (result == null){
+            int indiceResult = random.nextInt(getVerdadeiroFalso().length);
+            result = getVerdadeiroFalso()[indiceResult];
+        }
         return result;
     }
 
-    public String getCondicao() { return condicao; }
+    public String getCondicao() {
+        if (condicao == null){
+            int indiceCondicao = random.nextInt(getVerdadeiroFalso().length);
+            condicao = getYesNot()[indiceCondicao];
+        }
+        return condicao;
+    }
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public void Sortear(){
-        int indiceResult = random.nextInt(getVerdadeiroFalso().length);
-        int indiceCondicao = random.nextInt(getVerdadeiroFalso().length);
-        result = getVerdadeiroFalso()[indiceResult];
-        condicao = getYesNot()[indiceCondicao];
     }
 }

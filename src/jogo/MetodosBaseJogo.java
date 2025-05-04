@@ -21,7 +21,6 @@ abstract class MetodosBaseJogo {
         for (int j = 0; j < numVariaveis; j++){
             char nome_variavel = (char) ('A' + j);
             Variavel variavel = new Variavel(nome_variavel);
-            variavel.Sortear();
             listaVariaveis.add(variavel);
         }
     }
@@ -29,14 +28,12 @@ abstract class MetodosBaseJogo {
     void setConectivos(ArrayList<String> listaConectivos, int numVariaveis, int nivel){
         if (nivel == 1){
             for (int x = 0; x < numVariaveis - 1; x++) {
-                Conectivo conectivo = new Conectivo();
-                conectivo.setConectivoNivel1();
+                Conectivo conectivo = new Conectivo(nivel);
                 listaConectivos.add(conectivo.getConectivo());
             }
         }else{
             for (int x = 0; x < numVariaveis - 1; x++) {
-                Conectivo conectivo = new Conectivo();
-                conectivo.setConectivoNivel2();
+                Conectivo conectivo = new Conectivo(nivel);
                 listaConectivos.add(conectivo.getConectivo());
             }
         }
