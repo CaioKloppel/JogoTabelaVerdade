@@ -2,7 +2,7 @@ package tabelaVerdade;
 
 import java.util.Random;
 
-public class Conectivo extends Tabela {
+public class Conectivo extends AtributosTabelaVerdade {
     private final Random random = new Random();
     private final int nivel;
 
@@ -12,13 +12,8 @@ public class Conectivo extends Tabela {
 
     public String getConectivo() {
         String conectivo;
-        if (nivel == 1){
-            int indice = random.nextInt(getConectivos().length);
-            conectivo = getConectivos()[indice];
-        } else {
-            int indice = random.nextInt(getConectivosFase2().length);
-            conectivo = getConectivosFase2()[indice];
-        }
+        int indice = random.nextInt(getConectivos(nivel).length);
+        conectivo = getConectivos(nivel)[indice];
         return conectivo;
     }
 }

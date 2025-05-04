@@ -6,22 +6,24 @@ import util.Input;
 
 import java.util.ArrayList;
 
-class MetodosPrincipaisJogo extends MetodosBaseJogo {
+class MetodosPrincipaisJogo {
+
+    MetodosBaseJogo metodosBase = new MetodosBaseJogo();
 
     public int jogo(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaConectivos, ArrayList<String> respostasUsuario, ArrayList<String> respostasCorretas, int numVariaveis, int numRodadas, int nivel){
         for (int i = 0; i < numRodadas; i++){
-            setVariaveis(listaVariaveis, numVariaveis);
-            setConectivos(listaConectivos, numVariaveis, nivel);
-            printEnunciado(listaVariaveis, listaConectivos, respostasUsuario, numVariaveis, i);
+            metodosBase.setVariaveis(listaVariaveis, numVariaveis);
+            metodosBase.setConectivos(listaConectivos, numVariaveis, nivel);
+            metodosBase.printEnunciado(listaVariaveis, listaConectivos, respostasUsuario, numVariaveis, i);
 
-            inverter(listaVariaveis);
-            respostasCorretas.add(resposta(listaVariaveis, listaConectivos));
+            metodosBase.inverter(listaVariaveis);
+            respostasCorretas.add(metodosBase.resposta(listaVariaveis, listaConectivos));
 
             listaVariaveis.clear();
             listaConectivos.clear();
         }
 
-        return acertos(respostasUsuario, respostasCorretas);
+        return metodosBase.acertos(respostasUsuario, respostasCorretas);
     }
 
     public int getNumVariaveis(int nivel){

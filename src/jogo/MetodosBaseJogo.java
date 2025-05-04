@@ -6,7 +6,7 @@ import util.Input;
 
 import java.util.ArrayList;
 
-abstract class MetodosBaseJogo {
+class MetodosBaseJogo {
 
     String getResposta(){
         String resposta = Input.getInstance().scanNextLine().toUpperCase();
@@ -68,57 +68,57 @@ abstract class MetodosBaseJogo {
         }
     }
 
-    void setResultOnList(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaCondicoes, int index, String v_f){
+    void setResultOnList(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaconectivos, int index, String v_f){
         listaVariaveis.get(index).setResult(v_f);
         listaVariaveis.remove(index + 1);
-        listaCondicoes.remove(index);
+        listaconectivos.remove(index);
     }
 
-    String resposta(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaCondicoes) {
+    String resposta(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaconectivos) {
         while (listaVariaveis.size() > 1) {
             int index;
-            String condicao;
+            String conectivo;
 
-            int idxAnd  = listaCondicoes.indexOf("AND");
-            int idxNand = listaCondicoes.indexOf("↑");
+            int idxAnd  = listaconectivos.indexOf("AND");
+            int idxNand = listaconectivos.indexOf("↑");
             if (idxAnd != -1 || idxNand != -1) {
                 if (idxNand != -1 && (idxAnd == -1 || idxNand < idxAnd)) {
                     index = idxNand;
-                    condicao    = "↑";
+                    conectivo = "↑";
                 } else {
                     index = idxAnd;
-                    condicao    = "AND";
+                    conectivo = "AND";
                 }
             } else {
-                int idxOr  = listaCondicoes.indexOf("OR");
-                int idxNor = listaCondicoes.indexOf("↓");
+                int idxOr  = listaconectivos.indexOf("OR");
+                int idxNor = listaconectivos.indexOf("↓");
                 if (idxOr != -1 || idxNor != -1) {
                     if (idxNor != -1 && (idxOr == -1 || idxNor < idxOr)) {
                         index = idxNor;
-                        condicao    = "↓";
+                        conectivo = "↓";
                     } else {
                         index = idxOr;
-                        condicao    = "OR";
+                        conectivo = "OR";
                     }
-                } else if (listaCondicoes.contains("->")) {
-                    index = listaCondicoes.indexOf("->");
-                    condicao    = "->";
+                } else if (listaconectivos.contains("->")) {
+                    index = listaconectivos.indexOf("->");
+                    conectivo = "->";
                 } else {
-                    int idxBic = listaCondicoes.indexOf("<->");
-                    int idxXor = listaCondicoes.indexOf("⊕");
+                    int idxBic = listaconectivos.indexOf("<->");
+                    int idxXor = listaconectivos.indexOf("⊕");
                     if (idxXor != -1 && (idxBic == -1 || idxXor < idxBic)) {
                         index = idxXor;
-                        condicao    = "⊕";
+                        conectivo = "⊕";
                     } else {
                         index = idxBic;
-                        condicao    = "<->";
+                        conectivo = "<->";
                     }
                 }
             }
 
-            String out = getResult(listaVariaveis, index, condicao);
+            String out = getResult(listaVariaveis, index, conectivo);
 
-            setResultOnList(listaVariaveis, listaCondicoes, index, out);
+            setResultOnList(listaVariaveis, listaconectivos, index, out);
         }
         return listaVariaveis.getFirst().getResult();
     }
@@ -133,10 +133,10 @@ abstract class MetodosBaseJogo {
         return acertos;
     }
 
-    private String getResult(ArrayList<Variavel> listaVariaveis, int index, String condicao) {
+    private String getResult(ArrayList<Variavel> listaVariaveis, int index, String conectivo) {
         String L = listaVariaveis.get(index).getResult();
         String R = listaVariaveis.get(index + 1).getResult();
-        return switch (condicao) {
+        return switch (conectivo) {
             case "AND" -> (L.equals("V") && R.equals("V")) ? "V" : "F";
             case "↑" -> (L.equals("V") && R.equals("V")) ? "F" : "V";
             case "OR" -> (L.equals("V") || R.equals("V")) ? "V" : "F";

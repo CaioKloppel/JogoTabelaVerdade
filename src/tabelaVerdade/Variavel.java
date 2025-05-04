@@ -2,7 +2,7 @@ package tabelaVerdade;
 
 import java.util.Random;
 
-public class Variavel extends Tabela {
+public class Variavel extends AtributosTabelaVerdade {
     private final Random random = new Random();
     private final char nome;
     private String result;
