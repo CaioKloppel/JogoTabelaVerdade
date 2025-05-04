@@ -1,4 +1,4 @@
-package jogo.metodos;
+package jogo;
 
 import tabelaVerdade.Variavel;
 import util.Funcoes;
@@ -6,7 +6,7 @@ import util.Input;
 
 import java.util.ArrayList;
 
-public class MetodosPrincipaisJogo extends MetodosBaseJogo {
+class MetodosPrincipaisJogo extends MetodosBaseJogo {
 
     public int jogo(ArrayList<Variavel> listaVariaveis, ArrayList<String> listaConectivos, ArrayList<String> respostasUsuario, ArrayList<String> respostasCorretas, int numVariaveis, int numRodadas, int nivel){
         for (int i = 0; i < numRodadas; i++){

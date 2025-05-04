@@ -1,4 +1,4 @@
-package jogo.metodos;
+package jogo;
 
 import tabelaVerdade.Conectivo;
 import tabelaVerdade.Variavel;

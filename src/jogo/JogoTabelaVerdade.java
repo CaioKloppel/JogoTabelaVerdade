@@ -1,6 +1,5 @@
 package jogo;
 
-import jogo.metodos.MetodosPrincipaisJogo;
 import tabelaVerdade.Variavel;
 import util.Funcoes;
 import util.Input;
