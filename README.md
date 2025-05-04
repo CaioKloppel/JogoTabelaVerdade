@@ -19,21 +19,9 @@ O jogo possui dois níveis de dificuldade:
 
 Se o jogador acertar pelo menos 50% no nível 1, ele avança para o nível 2.
 
-## 📂 Estrutura do Projeto
-
-- `Main.java` — Ponto de entrada do jogo.
-- `JogoTabelaVerdade.java` — Coordena as etapas do jogo.
-- `MetodosPrincipaisJogo.java` — Métodos principais usados no jogo.
-- `MetodosBaseJogo.java` — Métodos base auxiliares.
-- `Conectivo.java` — Lida com a geração dos operadores lógicos.
-- `Variavel.java` — Representa variáveis booleanas.
-- `Tabela.java` — Estrutura base com os conectivos e valores possíveis.
-- `Funcoes.java` — Utilitário para entrada segura de inteiros.
-- `Input.java` — Singleton responsável pela leitura de entradas do jogador.
-
 ---
 
-## 🧪 Exemplo de Jogo
+##  🤓 Exemplo de Jogo
 
 ```
 Com quantas variáveis você gostaria de jogar no nível 1: 3
@@ -51,9 +39,24 @@ Respostas corretas: F | F
 A lógica considera precedência entre operadores e avalia as expressões da esquerda para a direita, resolvendo os conectivos em ordem definida para evitar ambiguidade.
 
 ---
+## 📂 Estrutura do Projeto
+
+- `Main.java` — Ponto de entrada do jogo.
+- `JogoTabelaVerdade.java` — Coordena as etapas do jogo.
+- `MetodosPrincipaisJogo.java` — Métodos principais usados no jogo.
+- `MetodosBaseJogo.java` — Métodos base auxiliares.
+- `Conectivo.java` — Lida com a geração dos operadores lógicos.
+- `Variavel.java` — Representa variáveis booleanas.
+- `Tabela.java` — Estrutura base com os conectivos e valores possíveis.
+- `Funcoes.java` — Utilitário para entrada segura de inteiros.
+- `Input.java` — Singleton responsável pela leitura de entradas do jogador.
+
+---
 ## 👨‍💻 Autor
 
 Projeto desenvolvido por Caio Klöppel.
+
+---
 
 ## 📜 Licença
 
